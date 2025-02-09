@@ -7,7 +7,7 @@ import Navbar from "./Navbar";
 export default function HeroSection() {
   return (
     <div>
-      <Navbar />
+
           
     <section
       className="w-full bg-cover bg-center relative"
@@ -27,7 +27,7 @@ export default function HeroSection() {
                 </span>
               </div>
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-black text-[#2D1810] leading-tight text-center lg:text-left">
-                <span className="block mb-1 sm:mb-2">FRESH BAKE</span>
+                <span className="block mb-1 sm:mb-2">MY FRESH BAKE</span>
                 <span className="relative inline-block">
                   DELIGHTS
                   <span className="absolute -top-2 sm:-top-3 right-0 transform rotate-2 animate-pulse">
