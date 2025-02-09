@@ -67,32 +67,27 @@ const ProductModal: React.FC<ProductModalProps> = ({ isOpen, onClose, productNam
   };
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl w-11/12 p-0 overflow-hidden">
-        <div className="relative w-full bg-white">
-          <DialogTitle className="sr-only">{productName} Gallery</DialogTitle>
+      <DialogContent className="max-w-5xl w-11/12 p-0 overflow-hidden sm:rounded-lg">
+        <div className="relative w-full bg-white max-h-[90vh] overflow-y-auto">
+          <DialogHeader className="sticky top-0 bg-white z-10 p-4 border-b">
+            <DialogTitle className="text-lg sm:text-xl font-semibold text-center">{productName} Gallery</DialogTitle>
+            <button onClick={onClose} className="absolute right-4 top-4 text-gray-500 hover:text-gray-800">
+              <X size={20} />
+            </button>
+          </DialogHeader>
 
-          {/* Title */}
-          <div className="relative p-4 border-b">
-            <h2 className="text-lg sm:text-xl font-semibold text-center">{productName}</h2>
-          </div>
-
-          {/* Main Image Display */}
-          <div className="flex flex-col">
-            <div className="relative flex justify-center items-center overflow-hidden">
-              <div className="relative w-full bg-gray-50 flex justify-center items-center"
-                style={{ height: 'calc(100vh - 400px)', minHeight: '250px' }}>
+          <div className="flex flex-col items-center p-4">
+            <div className="relative w-full max-w-3xl flex justify-center items-center overflow-hidden">
+              <div className="relative w-full bg-gray-50 flex justify-center items-center" style={{ height: "calc(100vh - 200px)", minHeight: "300px" }}>
                 {images[activeImageIndex] && (
                   <img
                     src={images[activeImageIndex].url}
                     alt={images[activeImageIndex].title}
-                    className={`max-h-full object-contain transition-transform duration-300 ${
-                      isZoomed ? 'scale-150' : 'scale-100'
-                    }`}
+                    className={`max-h-full object-contain transition-transform duration-300 ${isZoomed ? "scale-150" : "scale-100"}`}
                     onClick={() => setIsZoomed(!isZoomed)}
                   />
                 )}
 
-                {/* Navigation Buttons */}
                 {images.length > 1 && (
                   <>
                     <button
@@ -110,7 +105,6 @@ const ProductModal: React.FC<ProductModalProps> = ({ isOpen, onClose, productNam
                   </>
                 )}
 
-                {/* Zoom Button */}
                 <button
                   onClick={() => setIsZoomed(!isZoomed)}
                   className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 p-1 sm:p-2 rounded-full bg-black/20 hover:bg-black/40 text-white transition-colors"
@@ -120,8 +114,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ isOpen, onClose, productNam
               </div>
             </div>
 
-            {/* Image Title & Index */}
-            <div className="p-3 sm:p-4 border-t border-b text-center">
+            <div className="p-3 sm:p-4 text-center">
               <p className="text-sm sm:text-base">
                 <span className="font-medium">{images[activeImageIndex]?.title}</span>
                 <span className="text-xs sm:text-sm text-gray-500 ml-1">
@@ -130,7 +123,6 @@ const ProductModal: React.FC<ProductModalProps> = ({ isOpen, onClose, productNam
               </p>
             </div>
 
-            {/* Thumbnail Gallery */}
             <div className="p-3 sm:p-4">
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-1 sm:gap-2">
                 {images.map((image, index) => (
@@ -138,16 +130,10 @@ const ProductModal: React.FC<ProductModalProps> = ({ isOpen, onClose, productNam
                     key={index}
                     onClick={() => setActiveImageIndex(index)}
                     className={`relative aspect-square rounded-lg overflow-hidden transition-all ${
-                      activeImageIndex === index 
-                        ? 'ring-2 ring-blue-500 scale-95'
-                        : 'hover:scale-95'
+                      activeImageIndex === index ? "ring-2 ring-blue-500 scale-95" : "hover:scale-95"
                     }`}
                   >
-                    <img
-                      src={image.url}
-                      alt={image.title}
-                      className="w-full h-full object-cover"
-                    />
+                    <img src={image.url} alt={image.title} className="w-full h-full object-cover" />
                   </button>
                 ))}
               </div>
