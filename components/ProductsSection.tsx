@@ -22,17 +22,10 @@ const ProductModal: React.FC<ProductModalProps> = ({ isOpen, onClose, productNam
     "CAKE": [
       { url: "https://hawk-air-space.b-cdn.net/Cakes//BlackForest/BlackForestCake1.jpg", title: "Black Forest Cake" },
       { url: "https://hawk-air-space.b-cdn.net/Cakes//ButterScotch/ButterScotchCake2.jpeg", title: "Butterscotch Cake" },
-      {
-        url: 'https://hawk-air-space.b-cdn.net/Cakes//KidsCake/KidsCake16.png',title: "Kids Cake"
-      },    {
-        url:   'https://hawk-air-space.b-cdn.net/Cakes//KidsCake/KidsCake20.png',
-        title: "Kids Cake"
-      },      {
-        url: 'https://hawk-air-space.b-cdn.net/Cakes//VanillaCake/VanillaCake6.jpeg',title: "Vanilla Cake"
-      },{
-        url:   'https://hawk-air-space.b-cdn.net/Cakes//ChocolateCake/ChocoCake5.jpeg',
-        title: "Chocolate Cake"
-      },
+      { url: "https://hawk-air-space.b-cdn.net/Cakes//KidsCake/KidsCake16.png", title: "Kids Cake" },
+      { url: "https://hawk-air-space.b-cdn.net/Cakes//KidsCake/KidsCake20.png", title: "Kids Cake" },
+      { url: "https://hawk-air-space.b-cdn.net/Cakes//VanillaCake/VanillaCake6.jpeg", title: "Vanilla Cake" },
+      { url: "https://hawk-air-space.b-cdn.net/Cakes//ChocolateCake/ChocoCake5.jpeg", title: "Chocolate Cake" },
     ],
     "DILPASAND": [
       { url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBuRuFA-EXJxemTM7e1Mch-viV49SoKlsX8g&s", title: "Classic Dilpasand" },
@@ -59,20 +52,16 @@ const ProductModal: React.FC<ProductModalProps> = ({ isOpen, onClose, productNam
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl">
+      <DialogContent className="max-w-4xl p-4 md:p-6">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold">{productName}</DialogTitle>
+          <DialogTitle className="text-2xl font-bold text-center">{productName}</DialogTitle>
         </DialogHeader>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-          {productName && productImages[productName]?.map((image: ProductImage, index: number) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-2">
+          {productName && productImages[productName]?.map((image, index) => (
             <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
-              <img
-                src={image.url}
-                alt={image.title}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <h3 className="text-lg font-semibold">{image.title}</h3>
+              <img src={image.url} alt={image.title} className="w-full h-40 md:h-48 object-cover" />
+              <div className="p-2 text-center">
+                <h3 className="text-sm md:text-lg font-semibold">{image.title}</h3>
               </div>
             </div>
           ))}
@@ -82,16 +71,10 @@ const ProductModal: React.FC<ProductModalProps> = ({ isOpen, onClose, productNam
   );
 };
 
-type Product = {
-  name: string;
-  count: number;
-  color: string;
-};
-
 const ProductsSection: React.FC = () => {
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
 
-  const products: Product[] = [
+  const products = [
     { name: "CAKE", count: 12, color: "bg-[#E8E1E1] text-[#4A1E12]" },
     { name: "DILPASAND", count: 8, color: "bg-[#EDE7FF] text-[#4A1E12]" },
     { name: "ICE-CREAMS", count: 27, color: "bg-[#D4F3F9] text-[#026772]" },
@@ -101,18 +84,18 @@ const ProductsSection: React.FC = () => {
   ];
 
   return (
-    <div className="container mx-auto px-12 py-12 flex flex-col md:flex-row items-center md:items-start gap-12">
+    <div className="container mx-auto px-6 md:px-12 py-8 md:py-12 flex flex-col md:flex-row items-center md:items-start gap-12">
       {/* Left Section (Heading) */}
       <div className="w-full md:w-1/2 text-center md:text-left">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-[#2D1810] tracking-tight uppercase">
           PRODUCT WE BAKE <br /> HERE DAILY{" "}
           <span className="inline-block ml-2">
-            <span className="inline-flex items-center justify-center w-12 h-12 bg-orange-500 rounded-full shadow-lg">
-              <span className="text-2xl">🍪</span>
+            <span className="inline-flex items-center justify-center w-10 md:w-12 h-10 md:h-12 bg-orange-500 rounded-full shadow-lg">
+              <span className="text-xl md:text-2xl">🍪</span>
             </span>
           </span>
         </h2>
-        <p className="text-lg text-gray-700 mt-4 max-w-xl">
+        <p className="text-base md:text-lg text-gray-700 mt-4 max-w-xl mx-auto md:mx-0">
           Fresh Bake is an artisan bakery dedicated to crafting handmade cakes,
           pastries, and baked goods using the finest ingredients. Known for its
           fresh, preservative-free treats, Fresh Bake offers a delightful
@@ -127,10 +110,10 @@ const ProductsSection: React.FC = () => {
           <button
             key={product.name}
             onClick={() => setSelectedProduct(product.name)}
-            className={`${product.color} px-6 py-4 rounded-full flex items-center justify-between shadow-md transition-transform hover:scale-105 cursor-pointer`}
+            className={`${product.color} px-4 py-3 md:px-6 md:py-4 rounded-full flex items-center justify-between shadow-md transition-transform hover:scale-105 cursor-pointer text-sm md:text-lg`}
           >
-            <span className="font-bold text-lg">{product.name}</span>
-            <span className="bg-[#2D1810] text-white text-sm px-3 py-1 rounded-full font-semibold">
+            <span className="font-bold">{product.name}</span>
+            <span className="bg-[#2D1810] text-white text-xs md:text-sm px-2 md:px-3 py-1 rounded-full font-semibold">
               {product.count}
             </span>
           </button>
