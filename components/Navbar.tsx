@@ -12,17 +12,11 @@ export default function Navbar() {
       </Link>
 
       <div className="hidden md:flex items-center gap-8">
-        <Link href="/cake" className="font-medium hover:text-orange-500 transition-colors">
-          CAKE
-        </Link>
-        <Link href="/bakery" className="font-medium hover:text-orange-500 transition-colors">
-          BAKERY
+        <Link href="/products" className="font-medium hover:text-orange-500 transition-colors">
+          PRODUCT GALLERY
         </Link>
         <Link href="#about" className="font-medium hover:text-orange-500 transition-colors">
           ABOUT US
-        </Link>
-        <Link href="/cookies" className="font-medium hover:text-orange-500 transition-colors">
-          COOKIES
         </Link>
         <Link href="/contact" className="font-medium hover:text-orange-500 transition-colors">
           CONTACT

@@ -1,20 +1,25 @@
-import "./globals.css"
+import type { Metadata } from "next";
+import { Montserrat} from "next/font/google";
+import "./globals.css";
 
-export const metadata = {
+const inter = Montserrat({ weight: ['100','200','300','400','500','600','700','800'], subsets: ["latin"] });//,'200',,'400','500','600','700','800','900'
+
+export const metadata: Metadata = {
   title: "Fresh Bake",
   description: "Premium quality cakes and bakery items made from scratch",
-}
+};
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode
-}) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="en">
-      <body style={{ fontFamily: "'Brodaers-Rough', sans-serif" }}>
+      <body className={inter.className}>
         {children}
+      
       </body>
     </html>
-  )
+  );
 }

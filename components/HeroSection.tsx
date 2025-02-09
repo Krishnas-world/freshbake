@@ -2,9 +2,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, MapPin } from "lucide-react";
+import Navbar from "./Navbar";
 
 export default function HeroSection() {
   return (
+    <div>
+      <Navbar />
+          
     <section
       className="w-full bg-cover bg-center relative"
       style={{ backgroundImage: "url('/bg.jpg')"
@@ -90,5 +94,7 @@ export default function HeroSection() {
         </div>
       </div>
     </section>
+    </div>
+
   );
 }

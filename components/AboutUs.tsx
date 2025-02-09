@@ -23,7 +23,7 @@ export default function AboutUsSection() {
   ];
 
   return (
-    <section className="w-full bg-cover bg-center relative py-12"
+    <section id="#about" className="w-full bg-cover bg-center relative py-12"
       style={{ backgroundImage: "url('/bg.jpg')" }}>
       <div className="absolute inset-0 backdrop-blur-[1px]"></div>
 
