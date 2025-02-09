@@ -1,4 +1,6 @@
+import AboutUsSection from "@/components/AboutUs";
 import AnnouncementBanner from "@/components/AnnouncementBanner";
+import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
 import Navbar from "@/components/Navbar";
 
@@ -11,6 +13,8 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <ProductsSection />
+      <AboutUsSection />
+      <Footer />
     </main>
   )
 }

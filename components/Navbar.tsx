@@ -6,9 +6,9 @@ import Image from "next/image"
 
 export default function Navbar() {
   return (
-    <nav className="container text-2xl font-normal mx-auto px-4 py-4 flex items-center justify-between">
-      <Link href="/" className="text-2xl md:text-3xl font-black">
-        <Image src={'/hdlogo.png'} alt="FreshBake" height={40} width={60}/>
+    <nav className="container text-2xl font-normal mx-auto px-4 py-4 flex items-center justify-between bg-white">
+      <Link href="/" className="md:text-3xl font-black flex items-center">
+        <Image src={'/hdlogo.png'} alt="FreshBake" height={40} width={60}/> <span className="text-lg px-2">MY FRESH BAKE</span>
       </Link>
 
       <div className="hidden md:flex items-center gap-8">
@@ -18,7 +18,7 @@ export default function Navbar() {
         <Link href="/bakery" className="font-medium hover:text-orange-500 transition-colors">
           BAKERY
         </Link>
-        <Link href="/about" className="font-medium hover:text-orange-500 transition-colors">
+        <Link href="#about" className="font-medium hover:text-orange-500 transition-colors">
           ABOUT US
         </Link>
         <Link href="/cookies" className="font-medium hover:text-orange-500 transition-colors">
