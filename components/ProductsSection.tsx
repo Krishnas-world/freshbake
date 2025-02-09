@@ -1,6 +1,7 @@
 "use client";
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut } from "lucide-react";
 
 type ProductImage = {
   url: string;
@@ -16,8 +17,9 @@ type ProductModalProps = {
   onClose: () => void;
   productName: string | null;
 };
-
 const ProductModal: React.FC<ProductModalProps> = ({ isOpen, onClose, productName }) => {
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [isZoomed, setIsZoomed] = useState(false);
   const productImages: ProductImages = {
     "CAKE": [
       { url: "https://hawk-air-space.b-cdn.net/Cakes//BlackForest/BlackForestCake1.jpg", title: "Black Forest Cake" },
@@ -49,28 +51,114 @@ const ProductModal: React.FC<ProductModalProps> = ({ isOpen, onClose, productNam
       { url: "https://www.thegourmetbox.in/cdn/shop/files/20230829_162443_1200x1200.jpg?v=1693307224", title: "Gift Box" },
     ],
   };
+  const images = productName ? productImages[productName] || [] : [];
 
+  useEffect(() => {
+    setActiveImageIndex(0);
+    setIsZoomed(false);
+  }, [productName]); // Reset on product change
+
+  const handlePrevious = () => {
+    setActiveImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setActiveImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl p-4 md:p-6">
-        <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-center">{productName}</DialogTitle>
-        </DialogHeader>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-2">
-          {productName && productImages[productName]?.map((image, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
-              <img src={image.url} alt={image.title} className="w-full h-40 md:h-48 object-cover" />
-              <div className="p-2 text-center">
-                <h3 className="text-sm md:text-lg font-semibold">{image.title}</h3>
+      <DialogContent className="max-w-4xl w-11/12 p-0 overflow-hidden">
+        <div className="relative w-full bg-white">
+          <DialogTitle className="sr-only">{productName} Gallery</DialogTitle>
+
+          {/* Title */}
+          <div className="relative p-4 border-b">
+            <h2 className="text-lg sm:text-xl font-semibold text-center">{productName}</h2>
+          </div>
+
+          {/* Main Image Display */}
+          <div className="flex flex-col">
+            <div className="relative flex justify-center items-center overflow-hidden">
+              <div className="relative w-full bg-gray-50 flex justify-center items-center"
+                style={{ height: 'calc(100vh - 400px)', minHeight: '250px' }}>
+                {images[activeImageIndex] && (
+                  <img
+                    src={images[activeImageIndex].url}
+                    alt={images[activeImageIndex].title}
+                    className={`max-h-full object-contain transition-transform duration-300 ${
+                      isZoomed ? 'scale-150' : 'scale-100'
+                    }`}
+                    onClick={() => setIsZoomed(!isZoomed)}
+                  />
+                )}
+
+                {/* Navigation Buttons */}
+                {images.length > 1 && (
+                  <>
+                    <button
+                      onClick={handlePrevious}
+                      className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-1 sm:p-2 rounded-full bg-black/20 hover:bg-black/40 text-white transition-colors"
+                    >
+                      <ChevronLeft size={20} />
+                    </button>
+                    <button
+                      onClick={handleNext}
+                      className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-1 sm:p-2 rounded-full bg-black/20 hover:bg-black/40 text-white transition-colors"
+                    >
+                      <ChevronRight size={20} />
+                    </button>
+                  </>
+                )}
+
+                {/* Zoom Button */}
+                <button
+                  onClick={() => setIsZoomed(!isZoomed)}
+                  className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 p-1 sm:p-2 rounded-full bg-black/20 hover:bg-black/40 text-white transition-colors"
+                >
+                  {isZoomed ? <ZoomOut size={18} /> : <ZoomIn size={18} />}
+                </button>
               </div>
             </div>
-          ))}
+
+            {/* Image Title & Index */}
+            <div className="p-3 sm:p-4 border-t border-b text-center">
+              <p className="text-sm sm:text-base">
+                <span className="font-medium">{images[activeImageIndex]?.title}</span>
+                <span className="text-xs sm:text-sm text-gray-500 ml-1">
+                  {activeImageIndex + 1} of {images.length}
+                </span>
+              </p>
+            </div>
+
+            {/* Thumbnail Gallery */}
+            <div className="p-3 sm:p-4">
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-1 sm:gap-2">
+                {images.map((image, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setActiveImageIndex(index)}
+                    className={`relative aspect-square rounded-lg overflow-hidden transition-all ${
+                      activeImageIndex === index 
+                        ? 'ring-2 ring-blue-500 scale-95'
+                        : 'hover:scale-95'
+                    }`}
+                  >
+                    <img
+                      src={image.url}
+                      alt={image.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
+
   );
 };
-
 const ProductsSection: React.FC = () => {
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
 
